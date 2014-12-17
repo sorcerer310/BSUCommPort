@@ -1,0 +1,5 @@
+将win32com.dll复制到<JDK>/bin目录下；
+将comm.jar复制到<JDK>/lib；
+把javax.comm.properties也同样拷贝到<JDK>/lib目录下。
+然而在真正运行使用串口包的时候，仅作这些是不够的。因为通常当运行“java MyApp”的时候，是由JRE下的虚拟机启动MyApp的。
+而我们只复制上述文件到JDK相应目录下，所以应用程序将会提示找不到串口。解决这个问题的方法很简单，我们只须将上面提到的文件放到JRE相应的目录下就可以了。
