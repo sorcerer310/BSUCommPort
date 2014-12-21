@@ -48,7 +48,10 @@ public class SerialReader{
 			                    int numBytes = inputStream.read(readBuffer);
 			                }
 //			                System.out.println(new String(readBuffer));
-			                listener.readCompleted(new String(readBuffer));				//通知外部命令读取完成		
+			                listener.readCompleted(new String(readBuffer));				//通知外部命令读取完成
+			                listener.readCompleted(byteArrayToInt(readBuffer));			//通知外部命令读取完成
+			                listener.readCompleted(readBuffer[0]);						//通知外部命令读取一个字节完成
+			                
 			            } catch (IOException e) {
 			            	e.printStackTrace();
 			            }
@@ -89,6 +92,18 @@ public class SerialReader{
 	public void setSerialReaderListener(SerialReaderListener l){
 		listener = l;
 	}
+	/**
+	 * 字节数组转int型
+	 * @param b		字节数组数据
+	 * @return		返回int型数据
+	 */
+	private int byteArrayToInt(byte[] b) {  
+	    return   b[3] & 0xFF |  
+	            (b[2] & 0xFF) << 8 |  
+	            (b[1] & 0xFF) << 16 |  
+	            (b[0] & 0xFF) << 24;
+
+	}  
 	
 	public static void main(String[] args){
 		CommPortInstance cp = CommPortInstance.getInstance();
@@ -97,6 +112,18 @@ public class SerialReader{
 			@Override
 			public void readCompleted(String command) {
 				System.out.println("============read command:"+command);
+			}
+
+			@Override
+			public void readCompleted(int command) {
+				// TODO Auto-generated method stub
+				System.out.println("=============read command:"+command);
+			}
+
+			@Override
+			public void readCompleted(byte command) {
+				if(command==1)
+					System.out.println("=============read command:"+command);
 			}});
 	}
 }

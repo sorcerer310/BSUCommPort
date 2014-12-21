@@ -6,4 +6,6 @@ package com.bsu.commport;
  */
 public interface SerialReaderListener {
 	public void readCompleted(String command);
+	public void readCompleted(int command);
+	public void readCompleted(byte command);
 }
