@@ -27,8 +27,8 @@ public class CommPortInstance {
 	private SerialReader sreader;			//串口读取对象
 	private SerialWriter swriter;			//串口写对象
 	/**
-	 * ��ʼ���˿�
-	 * @param pname		�˿���
+	 * 初始化串口端口
+	 * @param pname		端口名
 	 */
 	public void initCommPort(String pname){			
 		portList = CommPortIdentifier.getPortIdentifiers();
